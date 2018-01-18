@@ -1,0 +1,167 @@
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>学生在校情况明细</title>
+    <link rel="stylesheet" type="text/css" href="../css/toastr.css" />
+    <link rel="stylesheet" type="text/css" href="../css/weui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/line2D.css" />
+    <style>
+        .header{
+            padding: 1.5rem;
+            background: #d1af8d;
+            color: #fff;
+        }
+        .title{
+            padding: 0.5rem;
+            background: #2882ff;
+            color: #fff;
+        }
+        .no_undeline:hover{
+            text-underline: none;
+        }
+
+        .page__hd{
+            padding:20px;
+        }
+        #divContainer{
+            margin-top: 20px;
+            text-align: center;
+        }
+        canvas{margin: 20px;}
+    </style>
+</head>
+<body>
+<div class="container" id="container">
+    <!--<div class="page home js_show">-->
+        <!--<div class="page__hd">-->
+            <!--<h1 class="page__title">-->
+                <!--&lt;!&ndash;<img src="./images/logo.png" alt="WeUI" height="21px">&ndash;&gt;-->
+            <!--</h1>-->
+            <!--<p class="page__desc">学生在校情况明细</p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="page__bd page__bd_spacing">-->
+        <!--<ul>-->
+            <!--<li>-->
+
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+
+
+    <div class="header">成绩列表</div>
+    <!--曲线图-->
+    <canvas id="canvas"
+            width=400 height=430 style="border: 1px solid #ccc;">
+    </canvas>
+    <div class="weui-panel__bd">
+        <table  class="table table table-bordered ">
+            <thead>
+            <tr class="cjtable">
+
+            </tr>
+
+            </thead>
+            <tbody class="cjbody">
+            <!--<tr class="cjbody">-->
+
+            <!--</tr>-->
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="header">作业列表</div>
+    <div class="weui-panel__bd zuoyebody">
+
+    </div>
+
+
+    <div class="header">考勤记录</div>
+    <div class="weui-panel__bd kaoqinbody">
+
+    </div>
+
+
+
+</div>
+
+
+</body>
+</html>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/cj.js"></script>
+<script type="text/javascript" src="../js/toastr.js"></script>
+<script type="text/javascript" src="../js/rdcp.toastr.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/ichart.1.2.1.min.js"></script>
+<script>
+//    $(function(){
+//        var dict = [
+//            {x: "2017期中排名", y: 47},
+//            {x: "2017期末排名", y: 2},
+//            {x: "2018期中排名", y: 380}
+//        ]
+//
+//        var canvas=document.getElementById('canvas');
+//        var context=canvas.getContext('2d');
+////绘制起始点、控制点、终点
+//        context.beginPath();
+//        context.fillStyle = 'red';
+//        for(var j=1;j<4;j++){
+//            context.fillText(100*j+'名', 0, 100*j, 50);//画文字
+//        }
+//
+//        context.fillText('名次(由高到低)', 0, 10, 50);//画文字
+//        x=100;
+//        y=400;
+//        for(var i=0;i<dict.length;i++){
+//            if(i==0){
+//                context.lineTo(0,dict[i].y);
+//                context.fillText("第"+dict[i].y+"名", 0 , dict[i].y-10);
+//            }else{
+//                context.lineTo(x*i,dict[i].y);
+//                context.fillText("第"+dict[i].y+"名", x*i+6 , dict[i].y+10);
+//
+//            }
+//
+//            context.fillText(dict[i].x, x*i , canvas.height-10 , 100);//画文字
+//
+//        }
+//        context.stroke();
+//
+////        context.moveTo(0,400);
+////        context.lineTo(100,400-47);
+////        context.lineTo(200,400-380);
+////        context.stroke();
+////        x=100;
+////        y=400;
+////        for(var i=0;i<dict.length;i++){
+////
+////            if(i==0){
+//////                context.arc(0, dict[i].y, 2, 0, 2*Math.PI);//画点
+////                context.lineTo(0,dict[i].y);
+////
+////            }else{
+//////                context.arc(x*i, dict[i].y, 2, 0, 2*Math.PI);//画点
+////                context.lineTo(x*i,dict[i].y);
+////
+////            }
+////
+////
+////            context.fillStyle = "#d1af8d";
+//////            context.fillText(dict[i].x, x*i + 3, canvas.height - 10, 100);//画文字
+////
+////            context.fill();
+////            context.fillText(dict[i].y, x + 3, y - 10);
+////            context.stroke();
+////        }
+//
+//
+//
+//
+//    });
+
+</script>
