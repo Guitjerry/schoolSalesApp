@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台模版</title>
+    <link rel="stylesheet" href="../plugin/layui/css/layui.css">
+    <style>
+        .layui-body-header{
+            padding: 10px;
+        }
+    </style>
+
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">后台模版</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item"><a href="">退出登陆</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">权限管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">用户管理</a></dd>
+                        <dd><a href="javascript:;">角色管理</a></dd>
+                        <dd><a href="javascript:;">资源管理</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">解决方案</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">列表一</a></dd>
+                        <dd><a href="javascript:;">列表二</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <div class="layui-body-header">
+            <button class="layui-btn layui-btn-md" id="addbtn">新增</button>
+        </div>
+        <!--<div class="lay">-->
+
+        <!--</div>-->
+
+        <!-- 内容主体区域 -->
+        <div style="padding: 10px;">
+            <table id="funcTable" class="layui-table" lay-filter="funcTable"></table>
+
+        </div>
+    </div>
+    <!--新增二级资源-->
+    <div id="addchildHtml"></div>
+    <!--资源明细-->
+    <div id="detailFunc"></div>
+    <!--新增资源-->
+    <div id="addFunc"></div>
+
+
+
+
+
+</div>
+<script src="../plugin/layui/layui.js"></script>
+<script src="../js/common.js"></script>
+
+
+<!--列表按钮-->
+<script type="text/html" id="barDemo">
+    <!--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{#  if(d.funcType == 1){ }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="addChild">新增二级资源</a>
+    {{#  }else { }}
+
+    {{#  } }}
+</script>
+<!--判断资源类型-->
+<script type="text/html" id="typeTpl">
+    {{#  if(d.funcType == 1){ }}
+        一级资源
+    {{#  } else { }}
+    二级资源
+    {{#  } }}
+</script>
+
+<!--编辑资源明细-->
+<script  id="detailFuncSc" type="text/html">
+
+    {{#  layui.each(d.list, function(index, item){ }}
+    <form class="layui-form" style="padding-top: 20px" id="editFuncForm">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源名称</label>
+            <div class="layui-input-block">
+                <input  type="text" name="funcName" lay-verify="funcName" autocomplete="off" placeholder="请输入名称" class="layui-input" value="{{ item.funcName }}" style="width: 90%">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源编码</label>
+            <div class="layui-input-block">
+                <input type="text"  name="funcCode" lay-verify="funcCode" autocomplete="off" placeholder="请输入编码" class="layui-input" value="{{ item.funcCode }}" style="width: 90%" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源路径</label>
+            <div class="layui-input-block">
+                <input type="text"  name="funcUrl" lay-verify="funcUrl" autocomplete="off" placeholder="请输入资源路径" class="layui-input" value="{{ item.funcUrl }}" style="width: 90%" >
+            </div>
+        </div>
+        <input type="hidden" value="{{ item.funcId }}" name="funcId">
+        <input type="hidden" value="{{ item.funcId }}" name="funcId">
+        <input type="hidden" value="{{ item.parFuncId }}" name="parFuncId">
+        <!--<input type="hidden" value="{{ item.sortOrder }}" name="sortOrder">-->
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div class="layui-btn" id="upbtn">立即提交</div>
+            </div>
+        </div>
+        {{#  }); }}
+
+
+    </form>
+
+</script>
+<!--添加资源明细-->
+<script  id="addFuncSc" type="text/html">
+    <form class="layui-form" style="padding-top: 20px" id="addFuncForm">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源名称</label>
+            <div class="layui-input-block">
+                <input  type="text" name="funcName" lay-verify="funcName" autocomplete="off" placeholder="请输入名称" class="layui-input"  style="width: 90%">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源编码</label>
+            <div class="layui-input-block">
+                <input type="text"  name="funcCode" lay-verify="funcCode" autocomplete="off" placeholder="请输入编码" class="layui-input"  style="width: 90%" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源路径</label>
+            <div class="layui-input-block">
+                <input type="text"  name="funcUrl" lay-verify="funcUrl" autocomplete="off" placeholder="请输入编码" class="layui-input"  style="width: 90%" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div class="layui-btn" id="addbtnSure">立即提交</div>
+            </div>
+        </div>
+    </form>
+</script>
+
+
+<!--添加二级资源明细-->
+
+<script  id="addChildFuncSc" type="text/html">
+    {{#  if( d.obj != null){ }}
+
+
+    <form class="layui-form" style="padding-top: 20px" id="addChildFuncForm">
+        <div class="layui-form-item">
+            <label class="layui-form-label">一级资源</label>
+            <div class="layui-input-block">
+                <input  type="text"   autocomplete="off"  class="layui-input" value=" {{ d.obj.funcName }}"  style="width: 90%" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源名称</label>
+            <div class="layui-input-block">
+                <input  type="text" name="funcName" lay-verify="funcName" autocomplete="off" placeholder="请输入资源名称" class="layui-input"  style="width: 90%">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源编码</label>
+            <div class="layui-input-block">
+                <input type="text"  name="funcCode" lay-verify="funcCode" autocomplete="off" placeholder="请输入资源编码" class="layui-input"  style="width: 90%" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源路径</label>
+            <div class="layui-input-block">
+                <input type="text"  name="funcUrl" lay-verify="funcUrl" autocomplete="off" placeholder="请输入资源路径" class="layui-input"  style="width: 90%" >
+            </div>
+        </div>
+
+        <input type="hidden" value="{{ d.obj.funcId }}" name="parFuncId">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div class="layui-btn" id="addChildBtnSure">立即提交</div>
+            </div>
+        </div>
+    </form>
+    {{#  }  }}
+</script>
+
+
+<script>
+    layui.use(['table','jquery'],function () {
+        var $ = layui.$;
+
+        var table = layui.table;
+
+        var url = getRootPath()+'/func/funcList';
+        console.info(url);
+        table.render({
+            elem: '#funcTable'
+            ,height: 315
+            ,url: url//数据接口
+            ,page: true //开启分页
+            ,id:'funcList'
+            ,cols: [[ //表头
+                {field: 'funcId', title: 'ID', sort: true, fixed: 'left'}
+                ,{field: 'funcName', title: '名称'}
+                ,{field: 'funcCode', title: '编码'}
+                ,{field: 'funcType', title: '等级',templet: '#typeTpl'}
+                ,{field: 'funcUrl', title: '资源路径'}
+                ,{field: '', title: '操作',toolbar: '#barDemo',templet: '#barDemo',width:280}
+
+            ]]
+        })
+        //监听工具条
+        table.on('tool(funcTable)', function (obj) {
+            var dataobj = obj.data;
+            if (obj.event == 'edit') {
+                //详情页面
+                $.ajax({
+                    url: getRootPath() + '/func/editFunc?funcId=' + dataobj.funcId,
+                    success: function (data) {
+                        layuiAlert('详细信息', ['620px', '435px'], 'detailFunc', detailFuncSc, data);
+                        /**
+                         * 更新角色
+                         */
+                        $('#upbtn').on('click', function () {
+                            var updateUrl = getRootPath() + '/func/editFuncSure';
+                            $.ajax({
+                                type: 'post',
+                                url: updateUrl,
+                                data: $('#editFuncForm').serialize(),
+                                success: function (data) {
+                                    if (data.successmsg) {
+                                        layer.msg(data.successmsg);
+                                        setTimeout(function () {
+                                            layer.closeAll();
+                                            table.reload('funcList', function () {
+
+                                            });
+                                        }, 2000)
+
+                                        // your code
+                                    }
+                                }
+                            });
+                        })
+
+                    }
+                })
+
+            } else if (obj.event == 'del') { //删除
+
+                layer.confirm('真的删除该数据吗', function (index) {
+
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    $.ajax({
+                        url: rootPath + "/func/delFunc?funcId=" + dataobj.funcId,
+                        success: function (data) {
+                            if (data.successmsg) {
+                                layer.msg(data.successmsg);
+                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                setTimeout(function () {
+                                    layer.closeAll();
+//
+//                                    table.reload('roleList',function () {
+//
+//                                    });
+                                }, 2000)
+
+                                // your code
+                            }
+                        }
+                    })
+                });
+            } else if (obj.event == 'addChild') {
+                $.ajax({
+                    url:rootPath+'/func/addChildFunc?parentFuncId='+dataobj.funcId,
+                    success:function (data) {
+
+                        layuiAlert('二级菜单信息', ['620px', '435px'], 'addchildHtml', addChildFuncSc, data);
+                        $('#addChildBtnSure').on('click',function () {
+                            var addChildUrl = getRootPath()+'/func/addChildFuncSure';
+                            $.ajax({
+                                type:'post',
+                                url: addChildUrl,
+                                data:$('#addChildFuncForm').serialize(),
+                                success: function(data) {
+                                    if (data.successmsg) {
+                                        layer.msg(data.successmsg);
+                                        setTimeout(function () {
+                                            layer.closeAll();
+                                            table.reload('funcList',function () {
+
+                                            });
+                                        },2000)
+
+                                    }
+                                }
+                            });
+                        })
+                    }
+                })
+//                layuiAlert('详细信息', ['620px', '435px'], 'detailFunc', detailFuncSc, data);
+            }
+        })
+
+        $('#addbtn').on('click',function () {
+            layuiAlert('新增资源信息',['620px','435px'],'addFunc',addFuncSc,"");
+            $('#addbtnSure').on('click',function () {
+                var addUrl = getRootPath()+'/func/addFuncSure';
+                $.ajax({
+                    type:'post',
+                    url: addUrl,
+                    data:$('#addFuncForm').serialize(),
+                    success: function(data) {
+                        if (data.successmsg) {
+                            layer.msg(data.successmsg);
+                            setTimeout(function () {
+                                layer.closeAll();
+                                table.reload('funcList',function () {
+
+                                });
+                            },2000)
+
+                        }
+                    }
+                });
+            })
+        })
+
+
+
+
+
+    })
+
+
+
+
+
+
+</script>
+</body>
+</html>
